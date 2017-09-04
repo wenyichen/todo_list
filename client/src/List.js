@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-const TodoCardList = (props) => (
+const TodoCardList = () => (
   <div>
       {this.props.items.map((tile) => (
         <Card>
