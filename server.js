@@ -5,7 +5,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-var uri = process.env.MONGODB_URI || "heroku_x2lqw8vb:s80jpcefolstktjnpg0fch2nlo@ds111204.mlab.com:11204/heroku_x2lqw8vb";
+var uri = process.env.MONGODB_URI;
 mongoose.connect(uri);
 
 app.use(express.static(__dirname + '/public'));
@@ -73,5 +73,5 @@ app.get('*', function(req, res) {
   res.sendfile('./public/index.html');
 });
 
-app.listen(process.env.PORT || 3001);
-console.log('listening on *:' + (process.env.PORT || 3001));
+app.listen(process.env.PORT);
+console.log('listening on *:' + process.env.PORT);
