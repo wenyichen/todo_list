@@ -36,7 +36,8 @@ app.post('/api/items', function(req, res) {
 
   item.create({
     title : req.body.title,
-    text : req.body.text
+    text : req.body.text,
+    done : false
   }, function(err, todo) {
     if (err) {
       res.send(err);
