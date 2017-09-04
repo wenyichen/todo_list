@@ -1,0 +1,51 @@
+import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import './App.css';
+import Appbar from './Appbar.js';
+import AddTodo from './AddTodo.js';
+import List from './List.js';
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {},
+      isLoading: true
+    }
+  }
+
+  componentDidMount() {
+    return fetch('/api/items')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          items: responseJson,
+          isLoading: false
+        }, function() {
+          // do something with new state
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  deleteTodo(id) {
+
+  }
+
+  render() {
+    return (
+      <MuiThemeProvider>
+      <div className="App">
+        <Appbar />
+        <List items={this.state.items}/>
+        <AddTodo remove={this.remove}/>
+      </div>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+export default App;
