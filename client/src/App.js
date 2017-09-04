@@ -25,14 +25,46 @@ class App extends Component {
         }, function() {
           // do something with new state
         });
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.error(error);
       });
   }
 
-  deleteTodo(id) {
+  handleDelete = (item) => {
+    return fetch('/api/items' + item, {
+      method: 'delete'
+    })
+    .then(response => response.json())
+    .then((responseJson) => {
+      this.setState({
+        items: responseJson,
+        isLoading: false
+      }, function() {
+        // do something with new state
+      });
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 
+  handleAdd = (formTitle, formText) => {
+    return fetch('/api/items', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: formTitle,
+          text: formText,
+      })
+    }).then(response => response.json())
+    .then((responseJson) => {
+      this.setState({
+        items: responseJson,
+        isLoading: false
+      }, function() {
+        // do something with new state
+      });
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
@@ -40,8 +72,8 @@ class App extends Component {
       <MuiThemeProvider>
       <div className="App">
         <Appbar />
-        <List items={this.state.items}/>
-        <AddTodo remove={this.remove}/>
+        <List items={this.state.items} deleteTodo={this.handleDelete}/>
+        <AddTodo addTodo={this.handleAdd}/>
       </div>
       </MuiThemeProvider>
     );

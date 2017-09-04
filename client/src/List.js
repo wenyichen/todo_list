@@ -2,26 +2,17 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-const tilesData = [
-  {
-    title: 'example',
-    text: 'example',
-    done: false
-  },
-];
-
-const TodoCardList = () => (
+const TodoCardList = (props) => (
   <div>
-      {tilesData.map((tile) => (
+      {this.props.items.map((tile) => (
         <Card>
           <CardHeader
             title={tile.title}
-            subtitle={tile.done ? 'Done' : 'Incomplete'}
             actAsExpander={true}
             showExpandableButton={true}
           />
           <CardActions>
-            <FlatButton label="Remove" />
+            <FlatButton label="Remove" onClick={this.props.handleDelete(tile._id)}/>
           </CardActions>
           <CardText expandable={true}>
             {tile.text}

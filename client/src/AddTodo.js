@@ -26,45 +26,48 @@ export default class AddTodo extends React.Component {
 
   handleSubmit = () => {
     this.setState({open: false});
+    this.props.handleAdd(this.state.title, this.state.text);
   };
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        onClick={this.handleSubmit}
-      />,
-    ];
-
     return (
       <div>
         <FloatingActionButton label="Dialog" onClick={this.handleOpen} style={buttonstyle}>
           <ContentAdd />
         </FloatingActionButton>
         <Dialog
-          title="Add an item"
-          actions={actions}
+          title="Add a todo"
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        <TextField
-          hintText="Give your todo a title"
-          floatingLabelText="Title"
-        /><br />
-        <TextField
-          floatingLabelText="Description"
-          hintText="What would you like to do?"
-          multiLine={true}
-          rows={2}
-          rowsMax={4}
-        />
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            hintText="Give your todo a title"
+            floatingLabelText="Title"
+            value={this.state.title}
+          /><br />
+          <TextField
+            floatingLabelText="Description"
+            hintText="What would you like to do?"
+            multiLine={true}
+            rows={2}
+            rowsMax={4}
+            value={this.state.text}
+          />
+          <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
+            <FlatButton
+              label="Cancel"
+              primary={false}
+              onClick={this.handleClose}
+            />
+            <FlatButton
+              label="Submit"
+              primary={true}
+              type="submit"
+            />
+          </div>
+        </form>
         </Dialog>
       </div>
     );

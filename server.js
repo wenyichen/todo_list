@@ -17,8 +17,7 @@ app.use(methodOverride());
 
 var item = mongoose.model('item', {
   title : String,
-  text : String,
-  done : Boolean
+  text : String
 });
 
 app.get('/api/items', function(req, res) {
@@ -37,8 +36,7 @@ app.post('/api/items', function(req, res) {
 
   item.create({
     title : req.body.title,
-    text : req.body.text,
-    done : false
+    text : req.body.text
   }, function(err, todo) {
     if (err) {
       res.send(err);
