@@ -17,6 +17,7 @@ mongoose.connect(uri, options);
 var conn = mongoose.connection;
 conn.on('error', console.error.bind(console, 'connection error:'));
 
+app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({'extended' : 'true'}));
 app.use(bodyParser.json());
@@ -79,8 +80,8 @@ app.delete('/api/items/:id', function(req, res) {
   });
 });
 
-app.get('*', function(req, res) {
-  res.sendfile(path.join(__dirname+'/client/build/index.html'));
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 app.listen(process.env.PORT || 3001);
