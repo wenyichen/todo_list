@@ -11,10 +11,6 @@ const tilesData = [
 
 export default class TodoCardList extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleDelete = (id) => {
     this.props.deleteTodo(id);
   }
