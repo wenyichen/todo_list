@@ -72,8 +72,8 @@ class App extends Component {
       <MuiThemeProvider>
       <div className="App">
         <Appbar />
-        <List items={this.state.items} deleteTodo={this.handleDelete}/>
-        <AddTodo addTodo={this.handleAdd}/>
+        <List items={this.state.items} deleteTodo={this.state.handleDelete}/>
+        <AddTodo addTodo={this.state.handleAdd}/>
       </div>
       </MuiThemeProvider>
     );

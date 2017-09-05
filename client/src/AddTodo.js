@@ -26,7 +26,7 @@ export default class AddTodo extends React.Component {
 
   handleSubmit = () => {
     this.setState({open: false});
-    this.props.handleAdd(this.state.title, this.state.text);
+    this.props.addTodo(this.state.title, this.state.text);
   };
 
   render() {

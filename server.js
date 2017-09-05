@@ -5,8 +5,15 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-var uri = process.env.MONGODB_URI;
-mongoose.connect(uri);
+var uri = "mongodb://todolistadmin:todolistpass@ds044689.mlab.com:44689/todolist";
+var options = {
+    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+};
+mongoose.connect(uri,
+    {auth: {authdb:"admin"}});
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('combined'));
@@ -22,13 +29,14 @@ var item = mongoose.model('item', {
 
 app.get('/api/items', function(req, res) {
 
+
   item.find(function(err, items) {
 
       if (err){
         res.send(err)
       }
 
-      res.json(todos);
+      res.json(items);
   });
 });
 
@@ -74,5 +82,5 @@ app.get('*', function(req, res) {
   res.sendfile('./public/index.html');
 });
 
-app.listen(process.env.PORT);
-console.log('listening on *:' + process.env.PORT);
+app.listen(process.env.PORT || 3001);
+console.log('listening on *:' + (process.env.PORT || 3001));
