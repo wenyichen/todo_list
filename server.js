@@ -4,14 +4,16 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var util = require('util');
+var async = require('async');
+var Schema = mongoose.Schema;
 
 var uri = "mongodb://todolistadmin:todolistpass@ds044689.mlab.com:44689/todolist";
 var options = {
     server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
     replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
 };
-mongoose.connect(uri,
-    {auth: {authdb:"admin"}});
+mongoose.connect(uri, options);
 var conn = mongoose.connection;
 conn.on('error', console.error.bind(console, 'connection error:'));
 
