@@ -81,7 +81,7 @@ app.delete('/api/items/:id', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.sendfile('./public/index.html');
+  res.sendfile('./client/build/index.html');
 });
 
 app.listen(process.env.PORT || 3001);
