@@ -17,7 +17,6 @@ mongoose.connect(uri, options);
 var conn = mongoose.connection;
 conn.on('error', console.error.bind(console, 'connection error:'));
 
-app.use(express.static(__dirname + '/build'));
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({'extended' : 'true'}));
 app.use(bodyParser.json());
