@@ -30,7 +30,7 @@ export default class TodoCardList extends React.Component {
                 showExpandableButton={true}
               />
               <CardActions>
-                <FlatButton label="Remove" onClick={() => handleDelete(tile._id)}/>
+                <FlatButton label="Remove" onClick={() => this.handleDelete(tile._id)}/>
               </CardActions>
               <CardText expandable={true}>
                 {tile.text}
