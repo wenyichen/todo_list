@@ -7,7 +7,7 @@ import AppBar from 'material-ui/AppBar';
  */
 const TodoAppBar = () => (
   <AppBar
-    title="Todo List in React.js and Node.js"
+    title="Todo List in React and Node.js"
     iconClassNameRight="muidocs-icon-navigation-expand-more"
   />
 );
