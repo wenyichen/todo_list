@@ -6,9 +6,9 @@ import TextField from 'material-ui/TextField';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const buttonstyle = {
-  marginTop: 20,
-  marginRight: 40,
-  float: "right"
+  position: "fixed",
+  bottom: 40,
+  right: 40
 };
 
 export default class AddTodo extends React.Component {
