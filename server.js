@@ -6,10 +6,9 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var path = require('path');
 
-var uri = process.env.MONGODB_URI;
+var uri = process.env.MONGODB_URI || "mongodb://todolistadmin:todolistpass@ds044689.mlab.com:44689/todolist";
 var options = {
-    server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+    useMongoClient: true,
 };
 mongoose.connect(uri, options);
 var conn = mongoose.connection;
@@ -44,8 +43,7 @@ app.post('/api/items', function(req, res) {
 
   item.create({
     title : req.body.title,
-    text : req.body.text,
-    done : false
+    text : req.body.text
   }, function(err, todo) {
     if (err) {
       res.send(err);

@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {},
+      items: [],
       isLoading: true
     }
   }
@@ -22,8 +22,6 @@ class App extends Component {
         this.setState({
           items: responseJson,
           isLoading: false
-        }, function() {
-          // do something with new state
         });
       }).catch((error) => {
         console.error(error);
@@ -31,16 +29,14 @@ class App extends Component {
   }
 
   handleDelete = (item) => {
-    return fetch('/api/items' + item, {
-      method: 'delete'
+    return fetch('/api/items/' + item, {
+      method: 'DELETE'
     })
     .then(response => response.json())
     .then((responseJson) => {
       this.setState({
         items: responseJson,
         isLoading: false
-      }, function() {
-        // do something with new state
       });
     }).catch((error) => {
       console.error(error);
@@ -50,17 +46,19 @@ class App extends Component {
   handleAdd = (formTitle, formText) => {
     return fetch('/api/items', {
         method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }),
         body: JSON.stringify({
           title: formTitle,
-          text: formText,
-      })
+          text: formText
+        })
     }).then(response => response.json())
     .then((responseJson) => {
       this.setState({
         items: responseJson,
         isLoading: false
-      }, function() {
-        // do something with new state
       });
     }).catch((error) => {
       console.error(error);
@@ -72,8 +70,8 @@ class App extends Component {
       <MuiThemeProvider>
       <div className="App">
         <Appbar />
-        <List items={this.state.items} deleteTodo={this.state.handleDelete}/>
-        <AddTodo addTodo={this.state.handleAdd}/>
+        <List items={this.state.items} deleteTodo={this.handleDelete}/>
+        <AddTodo addTodo={this.handleAdd}/>
       </div>
       </MuiThemeProvider>
     );

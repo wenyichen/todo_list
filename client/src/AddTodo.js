@@ -13,7 +13,17 @@ const buttonstyle = {
 
 export default class AddTodo extends React.Component {
   state = {
-    open: false,
+    title: '',
+    text: '',
+    open: false
+  };
+
+  handleTitleChange = (event) => {
+    this.setState({title: event.target.value});
+  };
+
+  handleTextChange = (event) => {
+    this.setState({text: event.target.value});
   };
 
   handleOpen = () => {
@@ -21,12 +31,13 @@ export default class AddTodo extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({title: '', text: '', open: false});
   };
 
-  handleSubmit = () => {
-    this.setState({open: false});
+  handleSubmit = (event) => {
+    event.preventDefault();
     this.props.addTodo(this.state.title, this.state.text);
+    this.setState({title: '', text: '', open: false});
   };
 
   render() {
@@ -46,7 +57,9 @@ export default class AddTodo extends React.Component {
             hintText="Give your todo a title"
             floatingLabelText="Title"
             value={this.state.title}
-          /><br />
+            onChange={this.handleTitleChange}
+          />
+          <br />
           <TextField
             floatingLabelText="Description"
             hintText="What would you like to do?"
@@ -54,6 +67,7 @@ export default class AddTodo extends React.Component {
             rows={2}
             rowsMax={4}
             value={this.state.text}
+            onChange={this.handleTextChange}
           />
           <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
             <FlatButton
